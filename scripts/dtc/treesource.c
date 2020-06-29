@@ -127,10 +127,28 @@ static void write_propval_string(FILE *f, struct data val)
 	}
 	fprintf(f, "\"");
 
-	/* Wrap up any labels at the end of the value */
-	for_each_marker_of_type(m, LABEL) {
-		assert (m->offset == val.len);
-		fprintf(f, " %s:", m->ref);
+static void write_propval_int(FILE *f, const char *p, size_t len, size_t width)
+{
+	const char *end = p + len;
+	assert(len % width == 0);
+
+	for (; p < end; p += width) {
+		switch (width) {
+		case 1:
+			fprintf(f, "%02"PRIx8, *(const uint8_t*)p);
+			break;
+		case 2:
+			fprintf(f, "0x%02"PRIx16, dtb_ld16(p));
+			break;
+		case 4:
+			fprintf(f, "0x%02"PRIx32, dtb_ld32(p));
+			break;
+		case 8:
+			fprintf(f, "0x%02"PRIx64, dtb_ld64(p));
+			break;
+		}
+		if (p + width < end)
+			fputc(' ', f);
 	}
 }
 
@@ -220,8 +238,7 @@ static void write_propval(FILE *f, struct property *prop)
 			nnotcelllbl++;
 	}
 
-	fprintf(f, " = ");
-	if ((p[len-1] == '\0') && (nnotstring == 0) && (nnul < (len-nnul))
+	if ((p[len-1] == '\0') && (nnotstring == 0) && (nnul <= (len-nnul))
 	    && (nnotstringlbl == 0)) {
 		write_propval_string(f, prop->val);
 	} else if (((len % sizeof(cell_t)) == 0) && (nnotcelllbl == 0)) {

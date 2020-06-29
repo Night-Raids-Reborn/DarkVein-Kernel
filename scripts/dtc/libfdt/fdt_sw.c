@@ -70,6 +70,68 @@ static int fdt_sw_check_header_(void *fdt)
 			return err; \
 	}
 
+/* 'memrsv' state:	Initial state after fdt_create()
+ *
+ * Allowed functions:
+ *	fdt_add_reservemap_entry()
+ *	fdt_finish_reservemap()		[moves to 'struct' state]
+ */
+static int fdt_sw_probe_memrsv_(void *fdt)
+{
+	int err = fdt_sw_probe_(fdt);
+	if (err)
+		return err;
+
+	if (!can_assume(VALID_INPUT) && fdt_off_dt_strings(fdt) != 0)
+		return -FDT_ERR_BADSTATE;
+	return 0;
+}
+
+#define FDT_SW_PROBE_MEMRSV(fdt) \
+	{ \
+		int err; \
+		if ((err = fdt_sw_probe_memrsv_(fdt)) != 0) \
+			return err; \
+	}
+
+/* 'struct' state:	Enter this state after fdt_finish_reservemap()
+ *
+ * Allowed functions:
+ *	fdt_begin_node()
+ *	fdt_end_node()
+ *	fdt_property*()
+ *	fdt_finish()			[moves to 'complete' state]
+ */
+static int fdt_sw_probe_struct_(void *fdt)
+{
+	int err = fdt_sw_probe_(fdt);
+	if (err)
+		return err;
+
+	if (!can_assume(VALID_INPUT) &&
+	    fdt_off_dt_strings(fdt) != fdt_totalsize(fdt))
+		return -FDT_ERR_BADSTATE;
+	return 0;
+}
+
+#define FDT_SW_PROBE_STRUCT(fdt) \
+	{ \
+		int err; \
+		if ((err = fdt_sw_probe_struct_(fdt)) != 0) \
+			return err; \
+	}
+
+static inline uint32_t sw_flags(void *fdt)
+{
+	/* assert: (fdt_magic(fdt) == FDT_SW_MAGIC) */
+	return fdt_last_comp_version(fdt);
+}
+
+/* 'complete' state:	Enter this state after fdt_finish()
+ *
+ * Allowed functions: none
+ */
+
 static void *fdt_grab_space_(void *fdt, size_t len)
 {
 	int offset = fdt_size_dt_struct(fdt);
