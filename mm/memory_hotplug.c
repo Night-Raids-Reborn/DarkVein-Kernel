@@ -914,7 +914,8 @@ int __ref online_pages(unsigned long pfn, unsigned long nr_pages, int online_typ
 		node_states_set_node(nid, &arg);
 		if (need_zonelists_rebuild)
 			build_all_zonelists(NULL);
-		zone_pcp_update(zone);
+		else
+			zone_pcp_update(zone);
 	}
 
 	init_per_zone_wmark_min();
@@ -1083,8 +1084,10 @@ bool try_online_one_block(int nid)
 {
 	struct zone *zone = &NODE_DATA(nid)->node_zones[ZONE_MOVABLE];
 	bool onlined_block = false;
+	int ret = lock_device_hotplug_sysfs();
 
-	lock_device_hotplug();
+	if (ret)
+		return false;
 
 	walk_memory_range(zone->zone_start_pfn, zone_end_pfn(zone),
 			  &onlined_block, online_memory_one_block);
@@ -1154,6 +1157,13 @@ int __ref add_memory_resource(int nid, struct resource *res, bool online)
 	ret = arch_add_memory(nid, start, size, NULL, true);
 	if (ret < 0)
 		goto error;
+
+	/* create memory block devices after memory was added */
+	ret = create_memory_block_devices(start, size);
+	if (ret) {
+		arch_remove_memory(nid, start, size, NULL);
+		goto error;
+	}
 
 	if (new_node) {
 		/* If sysfs file of new node can't be created, cpu on the node
@@ -1969,8 +1979,6 @@ void __ref __remove_memory(int nid, u64 start, u64 size)
 
 	BUG_ON(check_hotplug_memory_range(start, size));
 
-	mem_hotplug_begin();
-
 	/*
 	 * All memory blocks must be offlined before removing memory.  Check
 	 * whether all memory blocks in question are offline and trigger a BUG()
@@ -1986,9 +1994,15 @@ void __ref __remove_memory(int nid, u64 start, u64 size)
 	memblock_free(start, size);
 	memblock_remove(start, size);
 
-	/* remove memory block devices before removing memory */
+	/*
+	 * Memory block device removal under the device_hotplug_lock is
+	 * a barrier against racing online attempts.
+	 */
 	remove_memory_block_devices(start, size);
 
+	mem_hotplug_begin();
+
+	arch_remove_memory(nid, start, size, NULL);
 	__release_memory_resource(start, size);
 
 	try_offline_node(nid);
