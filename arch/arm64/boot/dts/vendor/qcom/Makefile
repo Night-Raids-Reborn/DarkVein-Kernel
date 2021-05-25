@@ -1,3 +1,21 @@
+
+ifeq ($(CONFIG_MACH_XIAOMI_LIME),y)
+
+ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
+
+dtbo-$(CONFIG_ARCH_BENGAL) += \
+                bengal-idp-overlay.dtbo
+
+bengal-idp-overlay.dtbo-base := bengal-idp.dtb
+
+else
+dtb-$(CONFIG_ARCH_BENGAL) += \
+		bengal-idp.dtb
+
+endif
+
+else # CONFIG_MACH_XIAOMI_LIME
+
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
         dtbo-$(CONFIG_ARCH_KONA) += \
                 kona-cdp-overlay.dtbo \
@@ -97,24 +115,6 @@ dtb-$(CONFIG_ARCH_LAGOON) += \
 endif
 
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
-        dtbo-$(CONFIG_ARCH_BENGAL) += \
-                bengal-rumi-overlay.dtbo \
-                bengal-qrd-overlay.dtbo \
-                bengal-idp-overlay.dtbo \
-                bengal-idp-usbc-overlay.dtbo
-
-bengal-rumi-overlay.dtbo-base := bengal.dtb
-bengal-qrd-overlay.dtbo-base := bengal.dtb
-bengal-idp-overlay.dtbo-base := bengal.dtb
-bengal-idp-usbc-overlay.dtbo-base := bengal.dtb
-else
-dtb-$(CONFIG_ARCH_BENGAL) += bengal-rumi.dtb \
-                bengal-qrd.dtb \
-		bengal-idp.dtb \
-		bengal-idp-usbc.dtb
-endif
-
-ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
         dtbo-$(CONFIG_ARCH_SCUBA) += \
 		scuba-rumi-overlay.dtbo \
 		scuba-idp-overlay.dtbo \
@@ -154,6 +154,8 @@ dtb-$(CONFIG_ARCH_SCUBA) += scuba-rumi.dtb \
 	scuba-iot-idp-2gb.dtb \
 	scuba-iot-idp-usbc-2gb.dtb
 endif
+
+endif # CONFIG_MACH_XIAOMI_LIME
 
 always		:= $(dtb-y)
 subdir-y	:= $(dts-dirs)
