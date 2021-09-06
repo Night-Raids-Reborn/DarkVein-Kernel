@@ -1,6 +1,3 @@
-
-ifeq ($(CONFIG_MACH_XIAOMI_LIME),y)
-
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
 
 dtbo-$(CONFIG_ARCH_BENGAL) += \
@@ -13,8 +10,6 @@ dtb-$(CONFIG_ARCH_BENGAL) += \
 		bengal-idp.dtb
 
 endif
-
-else # CONFIG_MACH_XIAOMI_LIME
 
 ifeq ($(CONFIG_BUILD_ARM64_DT_OVERLAY),y)
         dtbo-$(CONFIG_ARCH_KONA) += \
@@ -154,8 +149,6 @@ dtb-$(CONFIG_ARCH_SCUBA) += scuba-rumi.dtb \
 	scuba-iot-idp-2gb.dtb \
 	scuba-iot-idp-usbc-2gb.dtb
 endif
-
-endif # CONFIG_MACH_XIAOMI_LIME
 
 always		:= $(dtb-y)
 subdir-y	:= $(dts-dirs)
