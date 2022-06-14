@@ -1,4 +1,4 @@
-/*
+git/*
  * This is the linux wireless configuration interface.
  *
  * Copyright 2006-2010		Johannes Berg <johannes@sipsolutions.net>
