@@ -896,23 +896,6 @@ static void kernel_physical_mapping_remove(unsigned long start,
 
 }
 
-int arch_remove_memory(u64 start, u64 size, struct vmem_altmap *altmap)
-{
-	unsigned long start_pfn = start >> PAGE_SHIFT;
-	unsigned long nr_pages = size >> PAGE_SHIFT;
-	struct page *page = pfn_to_page(start_pfn);
-	struct zone *zone;
-	int ret = 0;
-
-	zone = page_zone(page);
-	ret = __remove_pages(zone, start_pfn, nr_pages, altmap);
-	WARN_ON_ONCE(ret);
-
-	kernel_physical_mapping_remove(start, start + size);
-
-	return ret;
-}
-
 #endif /* CONFIG_MEMORY_HOTREMOVE */
 static int arm64_online_page(struct page *page)
 {

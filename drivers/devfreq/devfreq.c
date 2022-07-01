@@ -558,8 +558,7 @@ out:
 	mutex_unlock(&devfreq->lock);
 	if (err)
 		dev_err(devfreq->dev.parent,
-			"failed to update frequency from OPP notifier (%d)\n",
-			err);
+			"failed to update frequency from OPP notifier (%d)\n");
 
 	return NOTIFY_OK;
 }
