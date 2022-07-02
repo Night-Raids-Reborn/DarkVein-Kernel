@@ -1,0 +1,14 @@
+make[1]: Entering directory '/workspace/DarkLegacy_kernel_citrus/out'
+  GEN     ./Makefile
+scripts/kconfig/conf  --syncconfig Kconfig
+***
+*** Configuration file ".config" not found!
+***
+*** Please run some configurator (e.g. "make oldconfig" or
+*** "make menuconfig" or "make xconfig").
+***
+make[3]: *** [../scripts/kconfig/Makefile:69: syncconfig] Error 1
+make[2]: *** [../Makefile:538: syncconfig] Error 2
+make[1]: *** [/workspace/DarkLegacy_kernel_citrus/Makefile:643: include/config/auto.conf.cmd] Error 2
+make[1]: Leaving directory '/workspace/DarkLegacy_kernel_citrus/out'
+make: *** [Makefile:146: sub-make] Error 2
