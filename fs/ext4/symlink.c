@@ -58,7 +58,7 @@ static int ext4_encrypted_symlink_getattr(const struct path *path,
 {
 	ext4_getattr(path, stat, request_mask, query_flags);
 
-	return fscrypt_symlink_getattr(path, stat);
+	return ext4_encrypted_symlink_getattr(path, stat, request_mask, query_flags);
 }
 
 const struct inode_operations ext4_encrypted_symlink_inode_operations = {

@@ -1245,7 +1245,7 @@ static int f2fs_encrypted_symlink_getattr(const struct path *path,
 {
 	f2fs_getattr(path, stat, request_mask, query_flags);
 
-	return fscrypt_symlink_getattr(path, stat);
+	return f2fs_encrypted_symlink_getattr(path, stat, request_mask, query_flags);
 }
 
 const struct inode_operations f2fs_encrypted_symlink_inode_operations = {

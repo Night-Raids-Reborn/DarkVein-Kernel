@@ -13,6 +13,8 @@ struct timerqueue_node {
 
 struct timerqueue_head {
 	struct rb_root_cached rb_root;
+	struct rb_root head;
+	struct timerqueue_node *next;
 };
 
 
