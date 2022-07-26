@@ -41,7 +41,7 @@ VERSI_KERNEL=$(make kernelversion)
 LOG_TERAKHIR_KOMIT=$(git log --pretty=format:'%s' -1)
 export KBUILD_BUILD_USER=$NAMA_PEMBANGUN
 export KBUILD_BUILD_HOST=$HOST_PEMBANGUN
-NAMA_KERNEL=DarkLegacy
+NAMA_KERNEL=DarkVein
 FILE_KERNEL=$(pwd)/out/arch/arm64/boot/Image
 TANGGAL=$(date +%y%m%d-%H%M)
 MULAI=$(date +"%s")
