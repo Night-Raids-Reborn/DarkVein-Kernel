@@ -141,3 +141,18 @@ kernel/configs/android-*.cfg
 
 # Tech package directories
 #techpack/
+
+# Build
+out/*
+log.txt
+clang/
+gcc/
+gcc32/
+AnyKernel3/
+out/
+clang/*
+gcc/*
+gcc32/*
+AnyKernel3/*
+zx.sh
+modules/
