@@ -25,7 +25,7 @@ ALAT=clang
 
 	if [ $ALAT = "clang" ]
 	then
-		git clone --depth=1 https://github.com/xiangfeidexiaohuo/Snapdragon-LLVM clang
+		git clone --depth=1 https://github.com/darknius20/SDClang clang
 		git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 gcc
         git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 gcc32
 	fi
