@@ -11,7 +11,7 @@ sudo apt install --no-install-recommends -y bc bison curl ccache ca-certificates
 # Persiapan
 NAMA_PERANGKAT="Poco M3"
 KODE_PERANGKAT=citrus
-DEFCONFIG_PERANGKAT=vendor/lime-perf_defconfig
+DEFCONFIG_PERANGKAT=vendor/bengal-perf_defconfig
 TOKEN_BOT_TELEGRAM="1322538934:AAGf6p-NvdOCXqowaX5aFfhuQPKTo4pni78"
 ID_CHAT_TELEGRAM="-1001387923273"
 NAMA_PEMBANGUN="Darknius"
@@ -87,7 +87,7 @@ function membangun(){
 			CROSS_COMPILE_ARM32=arm-eabi-
 		)
 	fi
-		make O=out ARCH=arm64 vendor/lime-perf_defconfig
+		make O=out ARCH=arm64 vendor/bengal-perf_defconfig
 		make -j$(nproc --all) O=out \
 				"${MAKE[@]}" 2>&1 | tee build.log
 
