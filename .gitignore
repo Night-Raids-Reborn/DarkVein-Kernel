@@ -154,5 +154,6 @@ clang/*
 gcc/*
 gcc32/*
 AnyKernel3/*
-zx.sh
 modules/
+build.log
+modules/*
