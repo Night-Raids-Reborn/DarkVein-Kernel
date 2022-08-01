@@ -25,7 +25,7 @@ ALAT=clang
 
 	if [ $ALAT = "clang" ]
 	then
-		git clone --depth=1 https://github.com/xiangfeidexiaohuo/Snapdragon-LLVM clang
+		git clone --depth=1 https://github.com/darknius20/SDClang clang
 		git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 gcc
         git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 gcc32
 	fi
@@ -41,7 +41,7 @@ VERSI_KERNEL=$(make kernelversion)
 LOG_TERAKHIR_KOMIT=$(git log --pretty=format:'%s' -1)
 export KBUILD_BUILD_USER=$NAMA_PEMBANGUN
 export KBUILD_BUILD_HOST=$HOST_PEMBANGUN
-NAMA_KERNEL=PureCAFQ
+NAMA_KERNEL=DarkCAF
 FILE_KERNEL=$(pwd)/out/arch/arm64/boot/Image
 TANGGAL=$(date +%y%m%d-%H%M)
 MULAI=$(date +"%s")
