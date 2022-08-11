@@ -21,7 +21,7 @@ HOST_PEMBANGUN="Gitpod"
 git clone --depth=1 https://github.com/dragonroad99/AnyKernel3
 
 # Pilih "clang" atau "gcc"
-ALAT=clang
+ALAT=gcc
 
 	if [ $ALAT = "clang" ]
 	then
@@ -85,6 +85,8 @@ function membangun(){
 		MAKE+=(
             CROSS_COMPILE=aarch64-elf- \
 			CROSS_COMPILE_ARM32=arm-eabi-
+			LLVM=1 \
+			LD=ld.lld
 		)
 	fi
 		make O=out ARCH=arm64 vendor/bengal-perf_defconfig
