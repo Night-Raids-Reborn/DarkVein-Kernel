@@ -21,7 +21,7 @@ HOST_PEMBANGUN="Gitpod"
 git clone --depth=1 https://github.com/dragonroad99/AnyKernel3
 
 # Pilih "clang" atau "gcc"
-ALAT=gcc
+ALAT=clang
 
 	if [ $ALAT = "clang" ]
 	then
