@@ -43,6 +43,7 @@ export KBUILD_BUILD_USER=$NAMA_PEMBANGUN
 export KBUILD_BUILD_HOST=$HOST_PEMBANGUN
 NAMA_KERNEL=DarkVein
 FILE_KERNEL=$(pwd)/out/arch/arm64/boot/Image
+FILE_dtbo=$(pwd)/out/arch/arm64/boot/dtbo.img
 TANGGAL=$(date +%y%m%d-%H%M)
 MULAI=$(date +"%s")
 
@@ -97,7 +98,7 @@ function membangun(){
 	rusak
 	exit 1
    fi
-	cp $FILE_KERNEL AnyKernel3/
+	cp $FILE_KERNEL AnyKernel3/ && cp $FILE_dtbo AnyKernel3/
 }
 
 # Kirim flashable kernel ke channel
