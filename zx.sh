@@ -6,7 +6,7 @@
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install --no-install-recommends -y bc bison curl ccache ca-certificates flex gcc git glibc-doc jq libxml2 libtinfo5 libc6-dev libssl-dev libstdc++6 make openssl python rclone ssh tar tzdata wget zip
+sudo apt install --no-install-recommends -y bc bison curl ccache ca-certificates flex gcc git glibc-doc jq libxml2 libtinfo5 libc6-dev libssl-dev libstdc++6 make openssl python3 python2 rclone ssh tar tzdata wget zip
 
 # Persiapan
 NAMA_PERANGKAT="Poco M3"
@@ -25,7 +25,7 @@ ALAT=clang
 
 	if [ $ALAT = "clang" ]
 	then
-		git clone --depth=1 https://github.com/darknius20/SDClang clang
+		git clone --depth=1 https://github.com/dragonroad99/clang-android_10.0.0-r47 clang
 		git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_aarch64_aarch64-linux-android-4.9 gcc
         git clone --depth=1 https://github.com/LineageOS/android_prebuilts_gcc_linux-x86_arm_arm-linux-androideabi-4.9 gcc32
 	fi
