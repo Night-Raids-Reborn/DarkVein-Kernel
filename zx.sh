@@ -6,7 +6,7 @@
 
 sudo apt update
 sudo apt upgrade -y
-sudo apt install --no-install-recommends -y bc bison curl ccache ca-certificates flex gcc git glibc-doc jq libxml2 libtinfo5 libc6-dev libssl-dev libstdc++6 make openssl python rclone ssh tar tzdata wget zip
+sudo apt install --no-install-recommends -y bc bison curl ccache ca-certificates flex gcc git glibc-doc jq libxml2 libtinfo5 libc6-dev libssl-dev libstdc++6 make openssl python2 python3 rclone ssh tar tzdata wget zip
 
 # Persiapan
 NAMA_PERANGKAT="Poco M3"
